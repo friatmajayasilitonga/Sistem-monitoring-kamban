@@ -3,9 +3,11 @@ import "./login.css";
 import logoPNM from "../assets/Logo.PNM.png";
 
 import { FaUser, FaEye, FaEyeSlash } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate(); // tambahkan ini
 
   return (
     <div className="login-container">
@@ -20,14 +22,27 @@ export default function Login() {
         </div>
 
         <div className="input-wrapper">
-          <input type={showPassword ? "text" : "password"} placeholder="Password" />
-          <span className="input-icon clickable" onClick={() => setShowPassword(!showPassword)}>
+          <input 
+            type={showPassword ? "text" : "password"} 
+            placeholder="Password" 
+          />
+          <span 
+            className="input-icon clickable" 
+            onClick={() => setShowPassword(!showPassword)}
+          >
             {showPassword ? <FaEye /> : <FaEyeSlash />}
           </span>
         </div>
 
         <button className="btn-login">LOGIN</button>
-        <button className="btn-register">Register</button>
+
+        {/* Tombol Register menuju register.jsx */}
+        <button 
+          className="btn-register" 
+          onClick={() => navigate("/register")}
+        >
+          Register
+        </button>
 
         <p className="forget-password">Forget Password?</p>
       </div>

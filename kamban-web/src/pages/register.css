@@ -53,7 +53,7 @@
 .form-grid {
   display: flex;
   gap: 20px; 
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
 }
 
@@ -115,7 +115,7 @@
   background: #e0e0e0; 
   border: 1px solid #777; 
   padding: 15px; 
- 
+  border-radius: 4px;
 }
 
 .email-box-wrapper .email-input-placeholder {
