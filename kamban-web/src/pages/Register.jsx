@@ -30,10 +30,13 @@ export default function Register() {
 
             {/* Username (Ikon di kanan) */}
             <div className="input-wrapper">
-              <input type="text" placeholder="Username" />
-              <FaUser className="input-icon right-icon" /> 
+              <input type="text" placeholder="Email kantor" />
+              <FaEnvelope className="input-icon email-icon" />
             </div>
+          </div>
 
+          {/* Kolom KANAN (1 Input Email Kantor) */}
+          <div className="right-input">
             {/* Password (Ikon di kanan, clickable) */}
             <div className="input-wrapper">
               <input 
@@ -61,18 +64,6 @@ export default function Register() {
               >
                 {showPass2 ? <FaEye /> : <FaEyeSlash />}
               </span>
-            </div>
-          </div>
-
-          {/* Kolom KANAN (1 Input Email Kantor) */}
-          <div className="right-input">
-            <div className="email-box-wrapper">
-              <input 
-                type="email" 
-                placeholder="Email Kantor" 
-                className="email-input-placeholder"
-              />
-              <FaEnvelope className="input-icon email-icon" /> 
             </div>
           </div>
 

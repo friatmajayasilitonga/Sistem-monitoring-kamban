@@ -64,7 +64,7 @@ export default function Dashboard() {
   const [columns] = useState(initialColumns);
   const [tasks, setTasks] = useState(initialTasks);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true); // Default Frame 4 (Open) for better navigation
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false); // Default Frame 4 (Open) for better navigation
 
   // form state
   const [title, setTitle] = useState("");
@@ -166,27 +166,7 @@ export default function Dashboard() {
             <div className="kanban-column" key={col.id} onDragOver={handleDragOver} onDrop={(e) => handleDrop(e, col.id)}>
               <div className="column-title">{col.title}</div>
 
-              {/* Tombol Add Card di sini, sebelum body agar tetap di atas */}
-              <div className="add-card-placeholder top-add" onClick={openModal}>
-                <FaPlus />
-              </div>
-
-              <div className="column-body">
-                {tasks
-                  .filter((t) => t.columnId === col.id)
-                  .map((t) => (
-                    <div className="task-card" key={t.id} title={t.meta?.description || ""} draggable onDragStart={(e) => handleDragStart(e, t.id)}>
-                      <div className="card-avatar">
-                        <span>{t.avatar}</span>
-                      </div>
-                      <div className="card-content">
-                        <div className="card-title">{t.content}</div>
-                        {t.meta?.assignee && <div className="card-meta">{t.meta.assignee}</div>}
-                      </div>
-                      <div className="priority-indicator" style={{ backgroundColor: getPriorityColor(t.priority) }}></div>
-                    </div>
-                  ))}
-              </div>
+              
             </div>
           ))}
         </div>
@@ -261,7 +241,7 @@ export default function Dashboard() {
             <h3>Buat Tugas Baru</h3>
             <form onSubmit={handleCreateTask} className="task-form">
               <label>Judul Tugas</label>
-              <input value={title} onChange={(e) => setTitle(e.target.value)} placeholder="e.g., Pembuatan API Integrasi" />
+              <input value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Tugas Baru" />
               <label>Penerima Tugas</label>
               <input value={assignee} onChange={(e) => setAssignee(e.target.value)} placeholder="Syamus A." />
               <div className="priority-group">
