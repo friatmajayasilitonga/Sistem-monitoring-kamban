@@ -2,7 +2,7 @@
 $host = "localhost";
 $user = "root";
 $pass = "";
-$db   = "kamban-web"; // ganti sesuai database kamu
+$db   = "kamban_web"; // ganti sesuai database kamu
 
 $conn = mysqli_connect($host, $user, $pass, $db);
 

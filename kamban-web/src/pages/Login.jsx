@@ -7,7 +7,36 @@ import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
-  const navigate = useNavigate(); // tambahkan ini
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+  const handleLogin = async () => {
+    if (email === "" || password === "") {
+      alert("Email dan Password wajib diisi");
+      return;
+    }
+
+    try {
+      const response = await fetch("http://localhost/Kamban/kamban-web/src/pages/api/login.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const result = await response.json();
+
+      if (result.status === true) {
+        alert("Login berhasil!");
+        navigate("/dashboard");
+      } else {
+        alert(result.message);
+      }
+    } catch (error) {
+      alert("Gagal terhubung ke server!");
+      console.error(error);
+    }
+  };
 
   return (
     <div className="login-container">
@@ -16,31 +45,25 @@ export default function Login() {
 
         <h2 className="login-title">Login Ke Sistem Kanban ATI</h2>
 
+        {/* Email Input */}
         <div className="input-wrapper">
-          <input type="text" placeholder="Username" />
+          <input type="email" placeholder="Email Kantor" value={email} onChange={(e) => setEmail(e.target.value)} />
           <FaUser className="input-icon" />
         </div>
 
+        {/* Password Input */}
         <div className="input-wrapper">
-          <input 
-            type={showPassword ? "text" : "password"} 
-            placeholder="Password" 
-          />
-          <span 
-            className="input-icon clickable" 
-            onClick={() => setShowPassword(!showPassword)}
-          >
+          <input type={showPassword ? "text" : "password"} placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+          <span className="input-icon clickable" onClick={() => setShowPassword(!showPassword)}>
             {showPassword ? <FaEye /> : <FaEyeSlash />}
           </span>
         </div>
 
-        <button className="btn-login">LOGIN</button>
+        <button className="btn-login" onClick={handleLogin}>
+          LOGIN
+        </button>
 
-        {/* Tombol Register menuju register.jsx */}
-        <button 
-          className="btn-register" 
-          onClick={() => navigate("/register")}
-        >
+        <button className="btn-register" onClick={() => navigate("/register")}>
           Register
         </button>
 
