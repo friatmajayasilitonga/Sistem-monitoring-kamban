@@ -1,7 +1,8 @@
-// Dashboard.jsx - VERSI TERBARU DENGAN FIX STICKY PLUS & PEGAWAI
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./dashboard.css";
 import { FaUserCircle, FaBars, FaSignOutAlt, FaPlus, FaSearch, FaFolderOpen, FaUsers, FaTachometerAlt, FaCalendarAlt } from "react-icons/fa";
+
+const userRole = localStorage.getItem("role");
 
 // Data dummy untuk tampilan Anggota Tim (Pegawai)
 const dummyTeamMembers = [
@@ -65,6 +66,12 @@ export default function Dashboard() {
   const [tasks, setTasks] = useState(initialTasks);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false); // Default Frame 4 (Open) for better navigation
+  const [userRole, setUserRole] = useState("");
+
+  useEffect(() => {
+    const role = localStorage.getItem("role");
+    setUserRole(role);
+  }, []);
 
   // form state
   const [title, setTitle] = useState("");
@@ -165,8 +172,6 @@ export default function Dashboard() {
           {columns.map((col) => (
             <div className="kanban-column" key={col.id} onDragOver={handleDragOver} onDrop={(e) => handleDrop(e, col.id)}>
               <div className="column-title">{col.title}</div>
-
-              
             </div>
           ))}
         </div>
@@ -212,9 +217,11 @@ export default function Dashboard() {
               <FaSearch className="search-icon" />
               <input className="search-input" placeholder="Search" />
             </div>
-            <button className="btn-new" onClick={openModal}>
-              <FaPlus /> New Task
-            </button>
+            {userRole === "admin" && (
+              <button className="btn-new" onClick={openModal}>
+                <FaPlus /> New Task
+              </button>
+            )}
             <div className="profile-mini">
               {/* Profil Putih Polos */}
               <div className="avatar-placeholder"></div>

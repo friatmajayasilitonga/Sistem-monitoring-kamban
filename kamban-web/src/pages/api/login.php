@@ -18,26 +18,35 @@ if (!$email || !$password) {
     exit;
 }
 
-$check = mysqli_query($conn, "SELECT * FROM users WHERE email='$email'");
+// PREPARED STATEMENT (lebih aman)
+$stmt = mysqli_prepare($conn, "SELECT id, name, email, password, role FROM users WHERE email = ?");
+mysqli_stmt_bind_param($stmt, "s", $email);
+mysqli_stmt_execute($stmt);
+$result = mysqli_stmt_get_result($stmt);
 
-if (mysqli_num_rows($check) == 0) {
+// Cek Email
+if (mysqli_num_rows($result) == 0) {
     echo json_encode(["status" => false, "message" => "Email tidak ditemukan"]);
     exit;
 }
 
-$user = mysqli_fetch_assoc($check);
+$user = mysqli_fetch_assoc($result);
 
+// Cek Password
 if (!password_verify($password, $user["password"])) {
     echo json_encode(["status" => false, "message" => "Password salah"]);
     exit;
 }
 
+// KIRIM role ke React!!!
 echo json_encode([
     "status" => true,
     "message" => "Login berhasil",
     "name" => $user["name"],
-    "email" => $user["email"]
+    "email" => $user["email"],
+    "role" => $user["role"],   // <-- Tambah ini
 ]);
 
+mysqli_stmt_close($stmt);
 mysqli_close($conn);
 ?>

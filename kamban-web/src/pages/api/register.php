@@ -40,9 +40,15 @@ if (mysqli_num_rows($check) > 0) {
 // HASH PASSWORD
 $hashed = password_hash($password, PASSWORD_DEFAULT);
 
-// INSERT USER
-$stmt = mysqli_prepare($conn, "INSERT INTO users (name, email, password) VALUES (?, ?, ?)");
-mysqli_stmt_bind_param($stmt, "sss", $name, $email, $hashed);
+// DEFAULT ROLE
+$role = "employee";
+
+// INSERT USER + ROLE
+$stmt = mysqli_prepare($conn, 
+    "INSERT INTO users (name, email, password, role) VALUES (?, ?, ?, ?)"
+);
+
+mysqli_stmt_bind_param($stmt, "ssss", $name, $email, $hashed, $role);
 
 if (mysqli_stmt_execute($stmt)) {
     echo json_encode(["status" => true, "message" => "Registrasi berhasil"]);
