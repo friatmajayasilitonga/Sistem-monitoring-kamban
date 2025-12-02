@@ -12,7 +12,7 @@ export default function Register() {
   const [confirm, setConfirm] = useState("");
 
   const handleRegister = async () => {
-    const response = await fetch("http://localhost/Sistem-Monitoring-kamban/kamban-web/src/pages/api/register.php", {
+    const response = await fetch("http://localhost/Kamban/kamban-web/src/pages/api/register.php", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"

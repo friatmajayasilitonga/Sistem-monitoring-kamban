@@ -182,7 +182,7 @@ export default function Dashboard() {
     try {
       // Sekarang kita gunakan method POST untuk mengirim data diri
       const res = await fetch(
-        "http://localhost/Sistem-monitoring-kamban/kamban-web/src/pages/api/get_tasks.php",
+        "http://localhost/Kamban/kamban-web/src/pages/api/get_tasks.php",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -202,7 +202,7 @@ export default function Dashboard() {
   const fetchMembers = async () => {
     try {
       const res = await fetch(
-        "http://localhost/Sistem-monitoring-kamban/kamban-web/src/pages/api/get_users.php"
+        "http://localhost/Kamban/kamban-web/src/pages/api/get_users.php"
       );
       const data = await res.json();
       setTeamMembers(data);
@@ -225,7 +225,7 @@ export default function Dashboard() {
     };
     try {
       const res = await fetch(
-        "http://localhost/Sistem-monitoring-kamban/kamban-web/src/pages/api/add_task.php",
+        "http://localhost/Kamban/kamban-web/src/pages/api/add_task.php",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -250,7 +250,7 @@ export default function Dashboard() {
     e.preventDefault();
     try {
       const res = await fetch(
-        "http://localhost/Sistem-monitoring-kamban/kamban-web/src/pages/api/add_user.php",
+        "http://localhost/Kamban/kamban-web/src/pages/api/add_user.php",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -292,7 +292,7 @@ export default function Dashboard() {
     e.preventDefault();
     try {
       const res = await fetch(
-        "http://localhost/Sistem-monitoring-kamban/kamban-web/src/pages/api/update_user.php",
+        "http://localhost/Kamban/kamban-web/src/pages/api/update_user.php",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -343,7 +343,7 @@ export default function Dashboard() {
       );
       try {
         await fetch(
-          "http://localhost/Sistem-monitoring-kamban/kamban-web/src/pages/api/update_task_status.php",
+          "http://localhost/Kamban/kamban-web/src/pages/api/update_task_status.php",
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
