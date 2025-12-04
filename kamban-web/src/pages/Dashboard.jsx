@@ -17,11 +17,11 @@ import {
 // --- KOMPONEN TAMPILAN PEGAWAI (DIPERBARUI) ---
 const TeamMembersView = ({ members, onAddClick, onEditClick, userRole }) => (
   <div className="team-view">
-    <h3>Anggota Tim (Data Pegawai)</h3>
+    <h3>Data Karyawan</h3>
     <div className="member-list">
       {members.length === 0 ? (
         <p style={{ color: "#666", fontStyle: "italic" }}>
-          Belum ada data pegawai.
+          Belum ada data karyawan.
         </p>
       ) : (
         members.map((member) => (
@@ -114,7 +114,7 @@ const TeamMembersView = ({ members, onAddClick, onEditClick, userRole }) => (
     </div>
     <div className="team-actions">
       <button className="btn-add-member" onClick={onAddClick}>
-        <FaPlus /> Tambah Anggota Tim
+        <FaPlus /> Tambah Karyawan
       </button>
     </div>
   </div>
@@ -469,7 +469,7 @@ export default function Dashboard() {
               className={`menu-btn ${activeMenu === "pegawai" ? "active" : ""}`}
               onClick={() => setActiveMenu("pegawai")}
             >
-              <FaUsers /> <span>Data Pegawai</span>
+              <FaUsers /> <span>Data Karyawan</span>
             </button>
           )}
         </nav>
@@ -493,7 +493,7 @@ export default function Dashboard() {
               className="icon"
               onClick={() => setIsSidebarOpen(!isSidebarOpen)}
             />
-            <h2 className="header-title">Project Monitoring</h2>
+            <h2 className="header-title">Sistem Monitoring </h2>
           </div>
           <div className="right-controls">
             <div className="search-wrapper">
