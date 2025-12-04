@@ -463,7 +463,7 @@
   transition: all 0.2s;
   border: 1px solid #ddd;
   background-color: #eee;
-  color: #333;
+  color: #000000;
 }
 .priority-tag.active {
   border-color: transparent;

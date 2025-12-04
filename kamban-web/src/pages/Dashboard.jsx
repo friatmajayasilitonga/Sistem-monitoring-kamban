@@ -309,7 +309,7 @@ export default function Dashboard() {
       if (result.status) {
         alert("Data pegawai berhasil diperbarui!");
         setIsEditMemberModalOpen(false);
-        fetchMembers(); // Refresh data
+        fetchMembers(); 
       } else {
         alert(result.message);
       }
@@ -318,29 +318,38 @@ export default function Dashboard() {
     }
   };
 
-  // --- HANDLER CLICK CARD (DETAIL) ---
   const handleCardClick = (task) => {
     setSelectedTask(task);
     setIsDetailModalOpen(true);
   };
 
-  // --- DRAG AND DROP ---
   function handleDragStart(e, taskId) {
     e.dataTransfer.setData("taskId", taskId);
   }
+
   function handleDragOver(e) {
     e.preventDefault();
   }
+
   async function handleDrop(e, targetColumnId) {
     e.preventDefault();
     const taskId = e.dataTransfer.getData("taskId");
     const draggedTask = tasks.find((t) => t.id == taskId);
+
     if (draggedTask && draggedTask.columnId !== targetColumnId) {
+      
+      if (userRole === "employee") {
+        if (targetColumnId === "done") {
+          alert("Akses Ditolak: Hanya Admin yang dapat memvalidasi tugas ke status Done (Selesai).");
+          return;
+        }
+      }
       setTasks((prev) =>
         prev.map((t) =>
           t.id == taskId ? { ...t, columnId: targetColumnId } : t
         )
       );
+
       try {
         await fetch(
           "http://localhost/Kamban/kamban-web/src/pages/api/update_task_status.php",
@@ -351,6 +360,7 @@ export default function Dashboard() {
           }
         );
       } catch (err) {
+        console.error("Gagal update status");
         fetchTasks();
       }
     }
@@ -419,7 +429,7 @@ export default function Dashboard() {
                     onDragStart={(e) => handleDragStart(e, task.id)}
                     onClick={() => handleCardClick(task)}
                     style={{
-                      borderLeft: `4px solid ${getPriorityColor(
+                      borderRight: `50px solid ${getPriorityColor(
                         task.priority
                       )}`,
                     }}
@@ -600,12 +610,12 @@ export default function Dashboard() {
                             : prio === "Sedang"
                             ? "#FFEA00" // Kuning Terang
                             : "#00E676", // Hijau Terang
-                        color: prio === priority ? "black" : "rgba(0,0,0,0.3)", // Opacity jika tidak dipilih
+                        color: prio === priority ? "black" : "rgba(0,0,0,0.8)", // Opacity jika tidak dipilih
                         border:
                           prio === priority
-                            ? "2px solid #333"
+                            ? "2px solid #3d3d3dff"
                             : "2px solid transparent", // Border penanda aktif
-                        opacity: prio === priority ? 1 : 0.6, // Redupkan yang tidak dipilih
+                        opacity: prio === priority ? 1 : 10, // Redupkan yang tidak dipilih
                       }}
                     >
                       {prio}
@@ -817,6 +827,16 @@ export default function Dashboard() {
         >
           <div className="modal" onClick={(e) => e.stopPropagation()}>
             <button
+              style={{
+                color: "#000000ff",
+                border: "none",
+                background: "transparent",
+                fontSize: "20px",
+                cursor: "pointer",
+                position: "absolute",
+                top: "15px",
+                right: "15px",
+              }}
               className="modal-close"
               onClick={() => setIsMemberModalOpen(false)}
             >
