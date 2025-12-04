@@ -571,3 +571,9 @@
   align-items: center;
   gap: 5px;
 }
+
+
+.btn-modal-close {
+  text-align: center;
+  
+}
